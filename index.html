@@ -3,34 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>津時風月プロジェクト - テスト中</title>
+    <title>津時風月プロジェクト</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* 引入自定义字体 */
+        @font-face {
+            font-family: 'はなぞめフォント';
+            src: url('はなぞめフォント.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 基础样式重置 */
+        * {
             margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'ja-kawaii', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
         }
+
+        /* 全局背景：亮黄→亮蓝渐变 */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe700 0%, #00ffea 100%);
+            color: #000000; /* 黑色文字 */
+            padding: 20px;
+            position: relative;
+        }
+
+        /* 右上角自定义图标 */
+        .header-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            z-index: 100;
+        }
+
+        /* 主容器 */
         .container {
-            text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 20px;
         }
-        h1 {
-            color: #333;
-            font-size: 2rem;
+
+        /* 内容两列布局（电脑端） */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* 内容卡片通用样式 */
+        .content-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 12px;
+            min-height: 250px;
+        }
+
+        .content-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #000000; /* 黑色标题 */
+            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .content-card ul {
+            list-style: none;
+        }
+
+        .content-card li {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .content-card a {
+            color: #000000; /* 黑色链接 */
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-card a:hover {
+            opacity: 0.8;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-card {
+                padding: 20px;
+                min-height: auto;
+            }
+
+            .content-card h3 {
+                font-size: 18px;
+            }
+
+            .content-card li {
+                font-size: 15px;
+            }
         }
     </style>
 </head>
 <body>
+    <img src="icon.png" alt="プロジェクトアイコン" class="header-icon">
+
     <div class="container">
-        <h1>网站测试中</h1>
-        <p>（テスト中です）</p>
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>新しいコアコンテンツ</h3>
+                <ul>
+                    <li><a href="utau.html">UTAU 音源</a><br>（津時フタゴシリーズ音源）</li>
+                    <li><a href="https://example.com/rvc">Weights RVCモデル</a><br>（音声変換AIツール）</li>
+                    <li><a href="character.html">キャラクター設定</a><br>（津時テオ/ネア/テッヴォ And More）</li>
+                    <li><a href="https://example.com/official">公式アカウント</a><br>（最新情報配信）</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>もっと</h3>
+                <ul>
+                    <li><a href="https://example.com/twitter">Official X/旧Twitter</a></li>
+                    <li><a href="https://example.com/personal_twitter">Personal X/旧Twitter</a></li>
+                    <li><a href="https://example.com/pixiv_fanbox">pixiv FANBOX</a></li>
+                    <li><a href="https://example.com/booth">BOOTH ストア</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 </html>
