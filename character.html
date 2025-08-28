@@ -3,34 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>津時風月プロジェクト - Character</title>
+    <title>津時風月プロジェクト - キャラクター紹介</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* 基础样式 */
+        * {
             margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'はなぞめフォント', Arial, sans-serif;
         }
-        .container {
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe700 0%, #00ffea 100%);
+            color: #000000;
+            padding: 40px 20px;
+        }
+
+        /* 标题样式 */
+        .main-title {
             text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
-            font-size: 2rem;
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* 角色卡片容器 */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* 角色卡片 */
+        .character-card {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        /* 角色标题 */
+        .character-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #000000;
+            border-bottom: 2px solid rgba(0,0,0,0.2);
+            padding-bottom: 8px;
+        }
+
+        /* 内容区域 */
+        .character-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: rgba(255,255,255,0.1);
+            border-radius: 0 0 12px 12px;
+            margin-top: 15px;
+        }
+
+        /* 展开状态 */
+        .character-content.active {
+            max-height: 500px; /* 根据内容调整 */
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .character-card {
+                margin: 10px auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>网站测试中</h1>
-        <p>（テスト中です）</p>
+    <h1 class="main-title">キャラクター</h1>
+    <p class="subtitle">キャラクターの立ち絵は今は提供できないよ</p>
+
+    <div class="character-grid">
+        <!-- 角色卡片模板 -->
+        <div class="character-card">
+            <div class="character-title">津時テオ</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                津時風月シリーズ代表キャラクター<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">津時ネア</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ/p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">津時テッヴォ</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">津時念亜</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">久井湖時</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">千藏ファクイ</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <div class="character-title">上部ツセ</div>
+            <div class="character-content">
+                <p>该页面编辑中<br>
+                このページは編集中だよ<br>
+                このページは編集中だよ</p>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // 获取所有角色卡片
+        const cards = document.querySelectorAll('.character-card');
+
+        cards.forEach(card => {
+            const content = card.querySelector('.character-content');
+            
+            card.addEventListener('click', () => {
+                // 切换展开状态
+                content.classList.toggle('active');
+                
+                // 关闭其他卡片
+                cards.forEach(otherCard => {
+                    if(otherCard !== card) {
+                        otherCard.querySelector('.character-content').classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
