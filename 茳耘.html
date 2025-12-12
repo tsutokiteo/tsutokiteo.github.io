@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茳耘 | Jiangyun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .info-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .download-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        .character-info {
+            list-style: none;
+        }
+        
+        .info-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333333;
+        }
+        
+        .download-section {
+            margin-bottom: 40px;
+        }
+        
+        .download-subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        
+        .download-link {
+            display: block;
+            padding: 15px 20px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+        
+        .download-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        
+        .back-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .language-switcher, .back-container {
+                display: none;
+            }
+            
+            .lang-content {
+                display: block !important;
+            }
+            
+            .download-link, .back-link {
+                border: 1px solid #000000;
+                color: #000000;
+                background-color: transparent;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .content-wrapper {
+                gap: 40px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .download-link {
+                font-size: 16px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" id="jp-btn">日本語</button>
+        <button class="lang-btn" id="cn-btn">中文</button>
+    </div>
+    
+    <!-- 日语内容 -->
+    <div class="lang-content active" id="jp-content">
+        <h1 class="page-title">茳耘</h1>
+        
+        <div class="content-wrapper">
+            <!-- 左侧：角色信息 -->
+            <div class="info-column">
+                <h2 class="section-title">キャラクター情報</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">名前</div>
+                        <div class="info-value">茳耘 / ジャンユン</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">好き</div>
+                        <div class="info-value">サーモン</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">嫌い</div>
+                        <div class="info-value">マスタード</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身長</div>
+                        <div class="info-value">173cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性別</div>
+                        <div class="info-value">メス</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 右侧：下载链接 -->
+            <div class="download-column">
+                <h2 class="section-title">音源ダウンロード</h2>
+                
+                <div class="download-section">
+                    <h3 class="download-subtitle">日本語</h3>
+                    <a href="https://bowlroll.net/file/342934" class="download-link" target="_blank">CV</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-container">
+            <a href="utau.html" class="back-link">← 音源一覧に戻る</a>
+        </div>
+    </div>
+    
+    <!-- 中文内容 -->
+    <div class="lang-content" id="cn-content">
+        <h1 class="page-title">茳耘</h1>
+        
+        <div class="content-wrapper">
+            <!-- 左侧：角色信息 -->
+            <div class="info-column">
+                <h2 class="section-title">角色信息</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">名字</div>
+                        <div class="info-value">茳耘 / Jiangyun</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">喜欢</div>
+                        <div class="info-value">三文鱼</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">讨厌</div>
+                        <div class="info-value">芥末</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身高</div>
+                        <div class="info-value">173cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性别</div>
+                        <div class="info-value">雌性</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 右侧：下载链接 -->
+            <div class="download-column">
+                <h2 class="section-title">音源下载</h2>
+                
+                <div class="download-section">
+                    <h3 class="download-subtitle">日语</h3>
+                    <a href="https://bowlroll.net/file/342934" class="download-link" target="_blank">CV</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-container">
+            <a href="utau.html" class="back-link">← 返回音源列表</a>
+        </div>
+    </div>
+    
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const jpBtn = document.getElementById('jp-btn');
+            const cnBtn = document.getElementById('cn-btn');
+            const jpContent = document.getElementById('jp-content');
+            const cnContent = document.getElementById('cn-content');
+            
+            // 切换到日语
+            jpBtn.addEventListener('click', function() {
+                jpBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                jpContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            // 切换到中文
+            cnBtn.addEventListener('click', function() {
+                cnBtn.classList.add('active');
+                jpBtn.classList.remove('active');
+                cnContent.classList.add('active');
+                jpContent.classList.remove('active');
+            });
+            
+            // 根据浏览器语言自动切换
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                cnBtn.click();
+            }
+            
+            console.log('茳耘ページが読み込まれました。');
+        });
+    </script>
+</body>
+</html>
