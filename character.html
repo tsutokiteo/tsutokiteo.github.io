@@ -1,188 +1,173 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>津時風月プロジェクト - キャラクター紹介</title>
+    <title>出错了∑(°口°๑)！！</title>
     <style>
-        /* 基础样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'はなぞめフォント', Arial, sans-serif;
         }
-
+        
         body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #ffe700 0%, #00ffea 100%);
-            color: #000000;
-            padding: 40px 20px;
-        }
-
-        /* 标题样式 */
-        .main-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        /* 角色卡片容器 */
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        /* 角色卡片 */
-        .character-card {
-            background: rgba(255,255,255,0.15);
             padding: 20px;
-            border-radius: 12px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .construction-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin: 0 auto 30px;
+            display: block;
+            opacity: 0.9;
+        }
+        
+        .message {
+            font-size: 18px;
+            color: #333333;
+            margin: 0 auto;
+            max-width: 400px;
+            line-height: 1.8;
+        }
+        
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 14px;
+            transition: all 0.3s;
         }
-
-        .character-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
         }
-
-        /* 角色标题 */
-        .character-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #000000;
-            border-bottom: 2px solid rgba(0,0,0,0.2);
-            padding-bottom: 8px;
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
         }
-
-        /* 内容区域 */
-        .character-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            background: rgba(255,255,255,0.1);
-            border-radius: 0 0 12px 12px;
-            margin-top: 15px;
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
         }
-
-        /* 展开状态 */
-        .character-content.active {
-            max-height: 500px; /* 根据内容调整 */
-            padding: 20px;
-            background: rgba(255,255,255,0.15);
+        
+        .lang-content.active {
+            display: block;
         }
-
-        /* 移动端适配 */
+        
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .character-grid {
-                grid-template-columns: 1fr;
+            .construction-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 20px;
             }
             
-            .character-card {
-                margin: 10px auto;
+            .message {
+                font-size: 16px;
+                max-width: 300px;
+            }
+            
+            .language-switcher {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .construction-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .message {
+                font-size: 14px;
+                max-width: 250px;
             }
         }
     </style>
 </head>
 <body>
-    <h1 class="main-title">キャラクター</h1>
-    <p class="subtitle">キャラクターの立ち絵は今は提供できないよ</p>
-
-    <div class="character-grid">
-        <!-- 角色卡片模板 -->
-        <div class="character-card">
-            <div class="character-title">津時テオ</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                津時風月シリーズ代表キャラクター<br>
-                このページは編集中だよ</p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">津時ネア</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ/p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">津時テッヴォ</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ</p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">津時念亜</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ</p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">久井湖時</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ</p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">千藏ファクイ</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ</p>
-            </div>
-        </div>
-
-        <div class="character-card">
-            <div class="character-title">上部ツセ</div>
-            <div class="character-content">
-                <p>该页面编辑中<br>
-                このページは編集中だよ<br>
-                このページは編集中だよ</p>
-            </div>
+    <div class="language-switcher">
+        <button class="lang-btn active" id="cn-btn">中文</button>
+        <button class="lang-btn" id="en-btn">English</button>
+    </div>
+    
+    <!-- 中文内容 -->
+    <div class="lang-content active" id="cn-content">
+        <div class="container">
+            <img src="error.png" alt="页面建设中" class="construction-image">
+            <p class="message">该页面还在制作或修改中，可能一会就可以访问啦</p>
         </div>
     </div>
-
+    
+    <!-- 英文内容 -->
+    <div class="lang-content" id="en-content">
+        <div class="container">
+            <img src="error.png" alt="Page Under Construction" class="construction-image">
+            <p class="message">This page is still under construction or modification, it might be accessible soon</p>
+        </div>
+    </div>
+    
     <script>
-        // 获取所有角色卡片
-        const cards = document.querySelectorAll('.character-card');
-
-        cards.forEach(card => {
-            const content = card.querySelector('.character-content');
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const cnBtn = document.getElementById('cn-btn');
+            const enBtn = document.getElementById('en-btn');
+            const cnContent = document.getElementById('cn-content');
+            const enContent = document.getElementById('en-content');
             
-            card.addEventListener('click', () => {
-                // 切换展开状态
-                content.classList.toggle('active');
-                
-                // 关闭其他卡片
-                cards.forEach(otherCard => {
-                    if(otherCard !== card) {
-                        otherCard.querySelector('.character-content').classList.remove('active');
-                    }
-                });
+            // 切换到中文
+            cnBtn.addEventListener('click', function() {
+                cnBtn.classList.add('active');
+                enBtn.classList.remove('active');
+                cnContent.classList.add('active');
+                enContent.classList.remove('active');
             });
+            
+            // 切换到英文
+            enBtn.addEventListener('click', function() {
+                enBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                enContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            // 根据浏览器语言自动切换
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (!browserLang.startsWith('zh')) {
+                enBtn.click();
+            }
+            
+            console.log('页面建设中页面已加载');
         });
     </script>
 </body>
