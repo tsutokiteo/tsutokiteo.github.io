@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラクター利用規約 | Character Usage Terms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+        }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .rules-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        
+        .rules-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        .rules-list li:before {
+            content: "・";
+            position: absolute;
+            left: 0;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #000000;
+            margin: 25px 0;
+            width: 100%;
+        }
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .language-switcher {
+                display: none;
+            }
+            
+            .lang-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switcher">
+            <button class="lang-btn active" id="jp-btn">日本語</button>
+            <button class="lang-btn" id="cn-btn">中文</button>
+        </div>
+        
+        <!-- 日语内容 -->
+        <div class="lang-content active" id="jp-content">
+            <h1>利用規約</h1>
+            
+            <div class="section-title">◆音源使用に際しての利用規約</div>
+            
+            <ul class="rules-list">
+                <li>宗教勧誘に関わるような利用、法に触れるような利用の仕方はやめてください。</li>
+                <li>R-18以下（性器、性行為の直接的な描写を含まない）ポルノ表現が許される。</li>
+                <li>作品にこの音源を使用した場合クレジット表記をしてください。</li>
+                <li>音源の二次配布は禁止します。</li>
+                <li>この音源を使用しトラブルが発生しても責任は負いかねます。</li>
+            </ul>
+            
+            <div class="divider"></div>
+            
+            <div style="text-align: center; font-size: 14px; margin-top: 30px;">
+                この文書は利用規約を表示するためのものです。
+            </div>
+        </div>
+        
+        <!-- 中文内容 -->
+        <div class="lang-content" id="cn-content">
+            <h1>音源使用条款</h1>
+            
+            <div class="section-title">◆关于音源使用的条款</div>
+            
+            <ul class="rules-list">
+                <li>请勿用于宗教劝诱或触犯法律的使用方式。</li>
+                <li>允许R-18以下（不包含性器、性行为的直接描写）的色情表现</li>
+                <li>在作品中使用音源时请进行署名。</li>
+                <li>禁止音源的二次分发。</li>
+                <li>使用音源发生问题时，恕不承担责任。</li>
+            </ul>
+            
+            <div class="divider"></div>
+            
+            <div style="text-align: center; font-size: 14px; margin-top: 30px;">
+                本文档用于显示使用条款。
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const jpBtn = document.getElementById('jp-btn');
+            const cnBtn = document.getElementById('cn-btn');
+            const jpContent = document.getElementById('jp-content');
+            const cnContent = document.getElementById('cn-content');
+            
+            // 切换到日语
+            jpBtn.addEventListener('click', function() {
+                jpBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                jpContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            // 切换到中文
+            cnBtn.addEventListener('click', function() {
+                cnBtn.classList.add('active');
+                jpBtn.classList.remove('active');
+                cnContent.classList.add('active');
+                jpContent.classList.remove('active');
+            });
+            
+            // 根据浏览器语言自动切换
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                cnBtn.click();
+            }
+            
+            console.log('キャラクター利用規約ページが読み込まれました。');
+        });
+    </script>
+</body>
+</html>
