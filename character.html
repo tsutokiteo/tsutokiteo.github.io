@@ -14,7 +14,7 @@
         body {
             background-color: #ffffff;
             color: #000000;
-            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
             line-height: 1.6;
             display: flex;
             justify-content: center;
@@ -46,41 +46,6 @@
             line-height: 1.8;
         }
         
-        .language-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        
-        .lang-btn {
-            background: transparent;
-            border: 1px solid #000000;
-            color: #000000;
-            padding: 8px 16px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .lang-btn:hover {
-            background-color: #f0f0f0;
-        }
-        
-        .lang-btn.active {
-            background-color: #000000;
-            color: #ffffff;
-        }
-        
-        /* 语言内容显示控制 */
-        .lang-content {
-            display: none;
-        }
-        
-        .lang-content.active {
-            display: block;
-        }
-        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .construction-image {
@@ -92,13 +57,6 @@
             .message {
                 font-size: 16px;
                 max-width: 300px;
-            }
-            
-            .language-switcher {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin-bottom: 20px;
             }
         }
         
@@ -116,59 +74,9 @@
     </style>
 </head>
 <body>
-    <div class="language-switcher">
-        <button class="lang-btn active" id="cn-btn">中文</button>
-        <button class="lang-btn" id="en-btn">English</button>
+    <div class="container">
+        <img src="error.png" alt="页面建设中" class="construction-image">
+        <p class="message">该页面还在制作或修改中，可能一会就可以访问啦</p>
     </div>
-    
-    <!-- 中文内容 -->
-    <div class="lang-content active" id="cn-content">
-        <div class="container">
-            <img src="error.png" alt="页面建设中" class="construction-image">
-            <p class="message">该页面还在制作或修改中，可能一会就可以访问啦</p>
-        </div>
-    </div>
-    
-    <!-- 英文内容 -->
-    <div class="lang-content" id="en-content">
-        <div class="container">
-            <img src="error.png" alt="Page Under Construction" class="construction-image">
-            <p class="message">This page is still under construction or modification, it might be accessible soon</p>
-        </div>
-    </div>
-    
-    <script>
-        // 语言切换功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const cnBtn = document.getElementById('cn-btn');
-            const enBtn = document.getElementById('en-btn');
-            const cnContent = document.getElementById('cn-content');
-            const enContent = document.getElementById('en-content');
-            
-            // 切换到中文
-            cnBtn.addEventListener('click', function() {
-                cnBtn.classList.add('active');
-                enBtn.classList.remove('active');
-                cnContent.classList.add('active');
-                enContent.classList.remove('active');
-            });
-            
-            // 切换到英文
-            enBtn.addEventListener('click', function() {
-                enBtn.classList.add('active');
-                cnBtn.classList.remove('active');
-                enContent.classList.add('active');
-                cnContent.classList.remove('active');
-            });
-            
-            // 根据浏览器语言自动切换
-            const browserLang = navigator.language || navigator.userLanguage;
-            if (!browserLang.startsWith('zh')) {
-                enBtn.click();
-            }
-            
-            console.log('页面建设中页面已加载');
-        });
-    </script>
 </body>
 </html>
