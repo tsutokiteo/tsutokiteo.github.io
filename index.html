@@ -13,24 +13,73 @@
             font-style: normal;
         }
 
-        /* 基础样式重置 */
+        /* 新增版权样式 */
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            color: #333333;
+        }
+
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'はなぞめフォント', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            font-family: 'はなぞめフォント', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'MS PGothic', sans-serif;
         }
-
-        /* 全局背景：亮黄→亮蓝渐变 */
+        
+        /* 保留原渐变背景 */
         body {
-            min-height: 100vh;
             background: linear-gradient(135deg, #ffe700 0%, #00ffea 100%);
-            color: #000000; /* 黑色文字 */
-            padding: 20px;
+            color: #000000;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
             position: relative;
         }
-
-        /* 右上角自定义图标 */
+        
+        /* 语言切换器（和第一个页面统一） */
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        /* 页面标题（和第一个页面统一） */
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        /* 右上角图标（保留） */
         .header-icon {
             position: fixed;
             top: 20px;
@@ -39,34 +88,43 @@
             height: 40px;
             z-index: 100;
         }
-
-        /* 主容器 */
-        .container {
-            max-width: 1200px;
-            margin: 60px auto 0;
-            padding: 20px;
+        
+        /* 内容布局（和第一个页面统一为弹性盒） */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 40px;
         }
-
-        /* 内容两列布局（电脑端） */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        
+        .info-column, .download-column {
+            flex: 1;
+            min-width: 300px;
         }
-
-        /* 内容卡片通用样式 */
+        
+        /* 板块标题（和第一个页面统一） */
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        /* 内容卡片（调整为统一风格） */
         .content-card {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.8);
             padding: 25px;
-            border-radius: 12px;
-            min-height: 250px;
+            border-radius: 0;
+            min-height: auto;
+            margin-bottom: 20px;
         }
 
         .content-card h3 {
             font-size: 20px;
             margin-bottom: 15px;
-            color: #000000; /* 黑色标题 */
-            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+            color: #000000;
+            border-bottom: 1px solid #e0e0e0;
             padding-bottom: 8px;
         }
 
@@ -78,45 +136,89 @@
             margin-bottom: 12px;
             font-size: 16px;
         }
-
-        .content-card a {
-            color: #000000; /* 黑色链接 */
+        
+        /* 链接样式（和第一个页面统一） */
+        .content-card a, .back-link {
+            display: inline-block;
+            color: #000000;
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s;
         }
-
+        
         .content-card a:hover {
-            opacity: 0.8;
+            color: #333;
+            text-decoration: underline;
         }
-
-        /* 手机端适配 */
+        
+        /* 返回按钮（和第一个页面统一） */
+        .back-link {
+            padding: 12px 24px;
+            border: 1px solid #000000;
+            background-color: #ffffff;
+            margin-top: 20px;
+        }
+        
+        .back-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* 语言内容控制（和第一个页面统一） */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* 响应式适配 */
         @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
+            body {
+                padding: 20px 10px;
             }
-
-            .content-card {
-                padding: 20px;
-                min-height: auto;
+            
+            .content-wrapper {
+                gap: 40px;
             }
-
-            .content-card h3 {
-                font-size: 18px;
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
             }
-
-            .content-card li {
-                font-size: 15px;
+            
+            .section-title {
+                font-size: 22px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 右上角图标（保留） -->
     <img src="1765549950361.png" alt="プロジェクトアイコン" class="header-icon">
 
-    <div class="container">
-        <div class="content-grid">
-            <div class="content-card">
-                <h3>新しいコアコンテンツ</h3>
+    <!-- 语言切换器（和第一个页面统一） -->
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="switchLang('ja')">日本語</button>
+        <button class="lang-btn" onclick="switchLang('zh')">中文</button>
+    </div>
+
+    <!-- 页面标题 -->
+    <h1 class="page-title">津時風月プロジェクト</h1>
+
+    <!-- 内容容器 -->
+    <div class="content-wrapper">
+        <!-- 左侧：新しいコアコンテンツ -->
+        <div class="info-column">
+            <h2 class="section-title lang-content active" lang="ja">新しいコアコンテンツ</h2>
+            <h2 class="section-title lang-content" lang="zh">新核心内容</h2>
+            
+            <div class="content-card lang-content active" lang="ja">
                 <ul>
                     <li><a href="utau.html">UTAU 音源</a><br>（津時フタゴシリーズ音源）</li>
                     <li><a href="https://www.weights.com/zh/models/cm6019tfu0fy4li180fklx3bv">Weights RVCモデル</a><br>（音声変換AIツール）</li>
@@ -125,9 +227,24 @@
                     <li><a href="https://b23.tv/MQ0ChlV">公式アカウント</a><br>（最新情報配信）</li>
                 </ul>
             </div>
+            
+            <div class="content-card lang-content" lang="zh">
+                <ul>
+                    <li><a href="utau.html">UTAU 音源</a><br>（TsukiFutago系列音源）</li>
+                    <li><a href="https://www.weights.com/zh/models/cm6019tfu0fy4li180fklx3bv">Weights RVC模型</a><br>（语音转换AI工具）</li>
+                    <li><a href="use.html">角色使用条款</a><br>（Character Terms of Use）</li>
+                    <li><a href="character.html">角色设定</a><br>（津時テオ/ネア/テッヴォ 等）</li>
+                    <li><a href="https://b23.tv/MQ0ChlV">官方账号</a><br>（最新信息发布）</li>
+                </ul>
+            </div>
+        </div>
 
-            <div class="content-card">
-                <h3>もっと</h3>
+        <!-- 右侧：もっと -->
+        <div class="download-column">
+            <h2 class="section-title lang-content active" lang="ja">もっと</h2>
+            <h2 class="section-title lang-content" lang="zh">更多链接</h2>
+            
+            <div class="content-card lang-content active" lang="ja">
                 <ul>
                     <li><a href="https://x.com/Tsutokiteo?t=gqfUbnGmQYL0pz4wpqNfPQ&s=09">Official X/旧Twitter</a></li>
                     <li><a href="https://x.com/Tsutokiteo_QwQ?t=OhRx51d8QTYWbgNRa_7eBg&s=09">Personal X/旧Twitter</a></li>
@@ -135,7 +252,46 @@
                     <li><a href="https://tsukuiuka.booth.pm">BOOTH ストア</a></li>
                 </ul>
             </div>
+            
+            <div class="content-card lang-content" lang="zh">
+                <ul>
+                    <li><a href="https://x.com/Tsutokiteo?t=gqfUbnGmQYL0pz4wpqNfPQ&s=09">官方X/原Twitter</a></li>
+                    <li><a href="https://x.com/Tsutokiteo_QwQ?t=OhRx51d8QTYWbgNRa_7eBg&s=09">个人X/原Twitter</a></li>
+                    <li><a href="https://www.pixiv.net/users/109038645">Pixiv</a></li>
+                    <li><a href="https://tsukuiuka.booth.pm">BOOTH 商店</a></li>
+                </ul>
+            </div>
+            
+            <div class="copyright">
+                <p class="lang-content active" lang="ja">© 2024 津時風月プロジェクト All Rights Reserved.</p>
+                <p class="lang-content" lang="zh">© 2024 津時風月项目 保留所有权利。</p>
+            </div>
         </div>
     </div>
+
+    <!-- 返回按钮 -->
+    <div class="back-container">
+        <a href="#" class="back-link lang-content active" lang="ja">トップページに戻る</a>
+        <a href="#" class="back-link lang-content" lang="zh">返回首页</a>
+    </div>
+
+    <!-- 语言切换脚本 -->
+    <script>
+        function switchLang(lang) {
+            // 隐藏所有语言内容
+            document.querySelectorAll('.lang-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // 显示目标语言内容
+            document.querySelectorAll(`.lang-content[lang="${lang}"]`).forEach(el => {
+                el.classList.add('active');
+            });
+            // 切换按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
+        }
+    </script>
 </body>
 </html>
