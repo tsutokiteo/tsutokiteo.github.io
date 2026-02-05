@@ -1,1 +1,177 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAU音源一覧 | UTAU Voicebank List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .voicebank-list {
+            list-style: none;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .voicebank-item {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .voicebank-link {
+            display: block;
+            padding: 20px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: normal;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+        
+        .voicebank-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+            flex: 1;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .language-switcher {
+                display: none;
+            }
+            
+            .lang-content {
+                display: block !important;
+            }
+            
+            .voicebank-link {
+                border: 1px solid #000000;
+                color: #000000;
+                background-color: transparent;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .voicebank-link {
+                font-size: 20px;
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" id="jp-btn">日本語</button>
+        <button class="lang-btn" id="cn-btn">中文</button>
+    </div>
+    
+    <!-- 日语内容 -->
+    <div class="lang-content active" id="jp-content">
+        <h1 class="page-title">UTAU音源一覧</h1>
+        
+        <ul class="voicebank-list">
+            <li class="voicebank-item">
+                <a href="Other_UTAU_VB/靛铧アオイ.html" class="voicebank-link">靛铧アオイ</a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- 中文内容 -->
+    <div class="lang-content" id="cn-content">
+        <h1 class="page-title">UTAU音源列表</h1>
+        
+        <ul class="voicebank-list">
+            <li class="voicebank-item">
+                <a href="Other_UTAU_VB/靛铧アオイ.html" class="voicebank-link">靛铧アオイ</a>
+            </li>
+        </ul>
+    </div>
+    
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const jpBtn = document.getElementById('jp-btn');
+            const cnBtn = document.getElementById('cn-btn');
+            const jpContent = document.getElementById('jp-content');
+            const cnContent = document.getElementById('cn-content');
+            
+            // 切换到日语
+            jpBtn.addEventListener('click', function() {
+                jpBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                jpContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            // 切换到中文
+         
