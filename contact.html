@@ -1,38 +1,313 @@
-<form id="contactForm">
-    <input type="text" name="email" id="email" placeholder="email" required>
-    <input type="text" name="name" id="name" placeholder="name" required>
-    <button type="submit" class="button">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - 津時風月project</title>
+    <!-- 标签页图标（和index保持一致） -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="icon.png" type="image/png" sizes="32x32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "Noto Sans SC", sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe700 0%, #00ffea 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        /* 左上角悬浮返回图标（跳回index.html，和index样式统一） */
+        .left-float-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+        .left-float-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .left-float-icon:hover {
+            transform: scale(1.1);
+        }
+        /* 语言切换器（中日英，和index风格统一） */
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+            z-index: 10;
+            position: relative;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000;
+            color: #000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        .lang-btn.active {
+            background-color: #000;
+            color: #fff;
+        }
+        /* 页面标题 */
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        /* 表单容器：双列布局，移动端自适应单列 */
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+        /* 单个表单框样式 */
+        .mail-form {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border: 1px solid #000;
+        }
+        /* 表单标题 */
+        .form-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000;
+        }
+        /* 输入框样式 */
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background: #fff;
+            resize: vertical;
+            min-height: 120px;
+        }
+        /* 发送按钮样式 */
+        .send-btn {
+            padding: 12px 30px;
+            border: 1px solid #000;
+            background: #fff;
+            color: #000;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .send-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+        /* 备用邮箱提示 */
+        .email-tip {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .email-address {
+            font-weight: 600;
+            color: #000;
+            word-break: break-all;
+        }
+        /* 版权信息（和index统一） */
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            color: #333;
+            z-index: 10;
+            position: relative;
+        }
+        /* 语言内容控制：默认隐藏，active显示 */
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active {
+            display: block;
+        }
+        /* 移动端适配：双列变单列，调整间距 */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            .form-container {
+                gap: 20px;
+            }
+            .mail-form {
+                padding: 20px;
+            }
+            .form-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 左上角悬浮返回图标：跳回index.html，图标和index保持一致 -->
+    <a href="index.html" class="left-float-icon">
+        <img src="icon.png" alt="Back to Home">
+    </a>
 
-<script>
-  document.getElementById('contactForm').addEventListener('submit', async (ev) => {
-    ev.preventDefault();
+    <!-- 语言切换器：中日英三语 -->
+    <div class="language-switcher">
+        <button class="lang-btn" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" onclick="switchLang('ja')">日本語</button>
+        <button class="lang-btn active" onclick="switchLang('en')">English</button>
+    </div>
 
-    const formData = new FormData(ev.target);
-    
-    // Adding all form data to an object
-    const formObject = {};
-    formData.forEach((value, 40fa5aea-90f1-47a3-b3fd-433d7b85fe94) => {
-      formObject40fa5aea-90f1-47a3-b3fd-433d7b85fe94 = value;
-    });
+    <!-- 页面标题：三语适配 -->
+    <h1 class="page-title lang-content" lang="zh">联系我们</h1>
+    <h1 class="page-title lang-content" lang="ja">お問い合わせ</h1>
+    <h1 class="page-title lang-content active" lang="en">Contact Us</h1>
 
-    try {
-      const response = await fetch('https://api.formbee.dev/formbee/40fa5aea-90f1-47a3-b3fd-433d7b85fe94', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formObject)
-      });
+    <!-- 双表单容器 -->
+    <div class="form-container">
+        <!-- 表单1：音源支持/问题反馈 → 发送到tsutokiteo@outlook.com -->
+        <div class="mail-form">
+            <!-- 表单1标题：三语 -->
+            <h2 class="form-title lang-content" lang="zh">音源支持或问题反馈等相关问题</h2>
+            <h2 class="form-title lang-content" lang="ja">音源サポートまたは問題フィードバック</h2>
+            <h2 class="form-title lang-content active" lang="en">Audio Support & Issue Feedback</h2>
 
-      if (response.ok) {
-        alert('Form submitted successfully');
-      } else {
-        alert('Form submission failed');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Error submitting form.');
-    }
-  });
-</script>
+            <!-- 自定义输入框：三语占位符 -->
+            <textarea class="form-input" id="input1" 
+                placeholder="请输入你的问题/反馈内容..." lang="zh" class="lang-content"></textarea>
+            <textarea class="form-input" id="input1" 
+                placeholder="問題やフィードバックの内容を入力してください..." lang="ja" class="lang-content"></textarea>
+            <textarea class="form-input" id="input1" 
+                placeholder="Please enter your question/feedback..." lang="en" class="lang-content active"></textarea>
+
+            <!-- 发送按钮：三语 -->
+            <button class="send-btn" onclick="sendMail('tsutokiteo@outlook.com', 'input1')" lang="zh" class="lang-content">发送</button>
+            <button class="send-btn" onclick="sendMail('tsutokiteo@outlook.com', 'input1')" lang="ja" class="lang-content">送信</button>
+            <button class="send-btn" onclick="sendMail('tsutokiteo@outlook.com', 'input1')" lang="en" class="lang-content active">Send</button>
+
+            <!-- 备用邮箱提示：三语 -->
+            <p class="email-tip lang-content" lang="zh">
+                若无法唤起邮件软件，可手动发送至：<br>
+                <span class="email-address">tsutokiteo@outlook.com</span>
+            </p>
+            <p class="email-tip lang-content" lang="ja">
+                メールソフトが起動できない場合は、手動で送信してください：<br>
+                <span class="email-address">tsutokiteo@outlook.com</span>
+            </p>
+            <p class="email-tip lang-content active" lang="en">
+                If the email app does not open, send manually to：<br>
+                <span class="email-address">tsutokiteo@outlook.com</span>
+            </p>
+        </div>
+
+        <!-- 表单2：投稿与提议 → 发送到2304388192@qq.com -->
+        <div class="mail-form">
+            <!-- 表单2标题：三语 -->
+            <h2 class="form-title lang-content" lang="zh">投稿与提议</h2>
+            <h2 class="form-title lang-content" lang="ja">投稿と提案</h2>
+            <h2 class="form-title lang-content active" lang="en">Submission & Proposal</h2>
+
+            <!-- 自定义输入框：三语占位符 -->
+            <textarea class="form-input" id="input2" 
+                placeholder="请输入你的投稿/提议内容..." lang="zh" class="lang-content"></textarea>
+            <textarea class="form-input" id="input2" 
+                placeholder="投稿や提案の内容を入力してください..." lang="ja" class="lang-content"></textarea>
+            <textarea class="form-input" id="input2" 
+                placeholder="Please enter your submission/proposal..." lang="en" class="lang-content active"></textarea>
+
+            <!-- 发送按钮：三语 -->
+            <button class="send-btn" onclick="sendMail('2304388192@qq.com', 'input2')" lang="zh" class="lang-content">发送</button>
+            <button class="send-btn" onclick="sendMail('2304388192@qq.com', 'input2')" lang="ja" class="lang-content">送信</button>
+            <button class="send-btn" onclick="sendMail('2304388192@qq.com', 'input2')" lang="en" class="lang-content active">Send</button>
+
+            <!-- 备用邮箱提示：三语 -->
+            <p class="email-tip lang-content" lang="zh">
+                若无法唤起邮件软件，可手动发送至：<br>
+                <span class="email-address">2304388192@qq.com</span>
+            </p>
+            <p class="email-tip lang-content" lang="ja">
+                メールソフトが起動できない場合は、手動で送信してください：<br>
+                <span class="email-address">2304388192@qq.com</span>
+            </p>
+            <p class="email-tip lang-content active" lang="en">
+                If the email app does not open, send manually to：<br>
+                <span class="email-address">2304388192@qq.com</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 底部版权信息：三语适配 -->
+    <div class="copyright">
+        <p class="lang-content" lang="zh">©️ 2025 津時風月 版权所有 | 禁止未经授权的复制与传播</p>
+        <p class="lang-content" lang="ja">©️2026 津時風月株式会社 All Rights Reserved. 無断複製・転載を禁止します</p>
+        <p class="lang-content active" lang="en">©️ 2025 Tsutoki Fuuzuki Project All Rights Reserved. Unauthorized reproduction is prohibited</p>
+    </div>
+
+    <!-- 核心脚本：语言切换 + 邮件唤起（带自定义内容） -->
+    <script>
+        // 语言切换功能
+        function switchLang(lang) {
+            // 隐藏所有语言内容
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            // 显示目标语言内容
+            document.querySelectorAll(`.lang-content[lang="${lang}"]`).forEach(el => el.classList.add('active'));
+            // 切换按钮激活状态
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
+        }
+
+        // 邮件唤起功能：获取输入框内容，拼接mailto协议，全平台兼容
+        function sendMail(email, inputId) {
+            // 获取当前激活的语言（用于拼接邮件主题）
+            const activeLang = document.querySelector('.lang-btn.active').getAttribute('onclick').match(/'(\w+)'/)[1];
+            // 根据语言设置邮件主题
+            let subject = '';
+            if (activeLang === 'zh') subject = '津時風月project-';
+            if (activeLang === 'ja') subject = '津時風月project-';
+            if (activeLang === 'en') subject = 'Tsutoki Fuuzuki Project-';
+            // 追加表单主题（区分两个表单）
+            subject += inputId === 'input1' ? 
+                (activeLang === 'zh' ? '音源支持/问题反馈' : activeLang === 'ja' ? '音源サポート/問題フィードバック' : 'Audio Support/Issue Feedback') :
+                (activeLang === 'zh' ? '投稿与提议' : activeLang === 'ja' ? '投稿と提案' : 'Submission & Proposal');
+            
+            // 获取用户自定义输入内容
+            const content = document.querySelector(`#${inputId}.lang-content.active`).value || 
+                (activeLang === 'zh' ? '无额外内容' : activeLang === 'ja' ? '追加内容なし' : 'No additional content');
+            
+            // 拼接mailto协议：收件人+主题+正文（全平台识别）
+            const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(content)}`;
+            // 唤起本地邮件客户端
+            window.location.href = mailtoUrl;
+        }
+    </script>
+</body>
+</html>
