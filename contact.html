@@ -1,0 +1,38 @@
+<form id="contactForm">
+    <input type="text" name="email" id="email" placeholder="email" required>
+    <input type="text" name="name" id="name" placeholder="name" required>
+    <button type="submit" class="button">Submit</button>
+</form>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+
+    const formData = new FormData(ev.target);
+    
+    // Adding all form data to an object
+    const formObject = {};
+    formData.forEach((value, key) => {
+      formObject[key] = value;
+    });
+
+    try {
+      const response = await fetch('https://api.formbee.dev/formbee/40fa5aea-90f1-47a3-b3fd-433d7b85fe94', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formObject)
+      });
+
+      if (response.ok) {
+        alert('Form submitted successfully');
+      } else {
+        alert('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Error submitting form.');
+    }
+  });
+</script>
