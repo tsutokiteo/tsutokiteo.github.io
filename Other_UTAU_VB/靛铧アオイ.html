@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>靛铧アオイ | Tenshin Aoi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .info-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .download-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        .character-info {
+            list-style: none;
+        }
+        
+        .info-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333333;
+        }
+        
+        .download-section {
+            margin-bottom: 40px;
+        }
+        
+        .download-subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        
+        .download-link {
+            display: block;
+            padding: 15px 20px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+        
+        .download-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        
+        .back-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* 新增：其他信息区域样式（与角色信息保持一致） */
+        .other-info {
+            margin-top: 60px;
+        }
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .language-switcher, .back-container {
+                display: none;
+            }
+            
+            .lang-content {
+                display: block !important;
+            }
+            
+            .download-link, .back-link {
+                border: 1px solid #000000;
+                color: #000000;
+                background-color: transparent;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .content-wrapper {
+                gap: 40px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .download-link {
+                font-size: 16px;
+                padding: 12px 16px;
+            }
+            
+            .other-info {
+                margin-top: 40px;
+            }
+        }
+
+        /* 弹窗样式 */
+        #cnTipDialog {
+            border: 1px solid #000;
+            border-radius: 8px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            font-size: 16px;
+        }
+        #cnTipDialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .dialog-btn {
+            padding: 8px 16px;
+            border: 1px solid #000;
+            background-color: #fff;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            float: right;
+        }
+        .dialog-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" id="jp-btn">日本語</button>
+        <button class="lang-btn" id="cn-btn" onclick="openCNTipDialog()">中文</button>
+    </div>
+    
+    <!-- 日语内容 -->
+    <div class="lang-content active" id="jp-content">
+        <h1 class="page-title">靛铧アオイ</h1>
+        
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">キャラクター情報</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">名前</div>
+                        <div class="info-value">靛铧アオイ</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性別</div>
+                        <div class="info-value">雄性</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身長</div>
+                        <div class="info-value">172cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">好き</div>
+                        <div class="info-value">お菓子、電池雨、の音</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">嫌い</div>
+                        <div class="info-value">なんだかんだで大声で叫ぶ人間の子ども</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="download-column">
+                <h2 class="section-title">音源ダウンロード</h2>
+                
+                <div class="download-section">
+                    <h3 class="download-subtitle">日本語</h3>
+                    <a href="https://bowlroll.net/file/335462" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                    <a href="https://github.com/tsutokiteo/tsutokiteo.github.io/releases/download/TenshinAoiCV/HOUKOSHIBA.V4.1.0.zip" class="download-link" target="_blank">CV（通过GitHub）</a>
+                    <a href="https://booth.pm/ja/items/6191234" class="download-link" target="_blank">CV（通过GitHub）</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增：日语版其他信息区域 -->
+        <div class="other-info">
+            <h2 class="section-title">その他情報</h2>
+            <ul class="character-info">
+                <li class="info-item">
+                    <div class="info-label">音源所有者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源制作者</div>
+                    <div class="info-value">津時テオ</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">サンプリング提供者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源/キャラクター の 旧称</div>
+                    <div class="info-value">方小柴/ホウコシバ/HOUKOSHIBA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">公式サイト</div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3493079275276517</a></div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3546879855954312</a></div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://x.com/KaRA_0621oex</a></div>
+                </li>
+            </ul>
+        </div>
+        <dialog id="cnTipDialog">
+            <h3>⚠️ Attention</h3>
+            <p>“靛铧アオイ”提供者描述为正在制作中，目前上传到所有平台的皆为2025.04.25最后一个“HOUKOSHIBA”音源的发行版本</p>
+            <button class="dialog-btn" onclick="document.getElementById('cnTipDialog').close()">确认</button>
+        </dialog>
+        
+        <div class="back-container">
+            <a href="otherutau.html" class="back-link">← 音源一覧に戻る</a>
+        </div>
+    </div>
+    
+    <!-- 中文内容 -->
+    <div class="lang-content" id="zh-content">
+        <h1 class="page-title">靛铧アオイ</h1>
+        
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">角色信息</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">姓名</div>
+                        <div class="info-value">靛铧アオイ</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性别</div>
+                        <div class="info-value">雄性</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身高</div>
+                        <div class="info-value">172cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">喜好</div>
+                        <div class="info-value">点心、电池雨、相关声音</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">厌恶</div>
+                        <div class="info-value">莫名大声吵闹的人类小孩</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="download-column">
+                <h2 class="section-title">音源下载</h2>
+                
+                <div class="download-section">
+                <h3 class="download-subtitle">日语</h3>
+                    <a href="https://bowlroll.net/file/335462" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                    <a href="https://github.com/tsutokiteo/tsutokiteo.github.io/releases/download/TenshinAoiCV/HOUKOSHIBA.V4.1.0.zip" class="download-link" target="_blank">CV（通过GitHub）</a>
+                    <a href="https://booth.pm/ja/items/6191234" class="download-link" target="_blank">CV（通过GitHub）</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增：中文版其他信息区域 -->
+                <div class="other-info">
+            <h2 class="section-title">その他情報</h2>
+            <ul class="character-info">
+                <li class="info-item">
+                    <div class="info-label">音源所有者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源制作者</div>
+                    <div class="info-value">津時テオ</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">サンプリング提供者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源/キャラクター の 旧称</div>
+                    <div class="info-value">方小柴/方音コシバ/HOUKOSHIBA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">公式サイト</div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3493079275276517</a></div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3546879855954312</a></div>
+                    <div class="info-value"><a href="#" style="color:#333; text-decoration:underline;">https://x.com/KaRA_0621oex</a></div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="back-container">
+            <a href="otherutau.html" class="back-link">← 返回音源列表</a>
+        </div>
+    </div>
+
+    <!-- 中文提示弹窗 -->
+    <dialog id="cnTipDialog">
+        <h3>⚠️ Attention</h3>
+        <p>音源作者未提供音源的中文信息，中文页面翻译有误请谅解。另外的，“靛铧アオイ”提供者描述为正在制作中，目前上传到所有平台的皆为2025.04.25最后一个“HOUKOSHIBA”音源的发行版本</p>
+        <button class="dialog-btn" onclick="document.getElementById('cnTipDialog').close()">确认</button>
+    </dialog>
+
+    <!-- 脚本 -->
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const jpBtn = document.getElementById('jp-btn');
+            const cnBtn = document.getElementById('cn-btn');
+            const jpContent = document.getElementById('jp-content');
+            const cnContent = document.getElementById('zh-content');
+            
+            jpBtn.addEventListener('click', function() {
+                jpBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                jpContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            cnBtn.addEventListener('click', function() {
+                cnBtn.classList.add('active');
+                jpBtn.classList.remove('active');
+                cnContent.classList.add('active');
+                jpContent.classList.remove('active');
+            });
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                cnBtn.click();
+            }
+            
+            console.log('靛铧アオイページが読み込まれました。');
+        });
+
+        // 弹窗触发函数
+        function openCNTipDialog() {
+            document.getElementById('cnTipDialog').showModal();
+        }
+    </script>
+</body>
+</html>
