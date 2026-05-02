@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚靖アオイ | Kyosei Aoi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 40px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .lang-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .info-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .download-column {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        .character-info {
+            list-style: none;
+        }
+        
+        .info-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333333;
+        }
+        
+        .download-section {
+            margin-bottom: 40px;
+        }
+        
+        .download-subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        
+        .download-link {
+            display: block;
+            padding: 15px 20px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+        
+        .download-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #000000;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        
+        .back-link:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .back-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* 其他信息区域样式 */
+        .other-info {
+            margin-top: 60px;
+        }
+        
+        /* 利用规约区域样式 */
+        .terms-section {
+            margin-top: 60px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            background-color: #f9f9f9;
+        }
+        
+        .terms-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .terms-subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .terms-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .terms-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .terms-list li {
+            margin-bottom: 8px;
+        }
+        
+        /* 语言内容显示控制 */
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* 打印样式 */
+        @media print {
+            .language-switcher, .back-container {
+                display: none;
+            }
+            
+            .lang-content {
+                display: block !important;
+            }
+            
+            .download-link, .back-link {
+                border: 1px solid #000000;
+                color: #000000;
+                background-color: transparent;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .content-wrapper {
+                gap: 40px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .download-link {
+                font-size: 16px;
+                padding: 12px 16px;
+            }
+            
+            .other-info, .terms-section {
+                margin-top: 40px;
+                padding: 20px;
+            }
+        }
+        /* 弹窗样式 */
+        .tip-dialog {
+            border: 1px solid #000;
+            border-radius: 8px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            font-size: 16px;
+        }
+        .tip-dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .dialog-btn {
+            padding: 8px 16px;
+            border: 1px solid #000;
+            background-color: #fff;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            float: right;
+        }
+        .dialog-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        /* 为 details 标签添加样式 */
+        details summary {
+            cursor: pointer;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" id="jp-btn" onclick="openJPTipDialog()">日本語</button>
+        <button class="lang-btn" id="cn-btn" onclick="openCNTipDialog()">中文</button>
+    </div>
+    
+    <!-- 日语内容 -->
+    <div class="lang-content active" id="jp-content">
+        <h1 class="page-title">虚靖アオイ</h1>
+        
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">キャラクター情報</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">名前</div>
+                        <div class="info-value">虚靖アオイ</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性別</div>
+                        <div class="info-value">雄性</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">種族</div>
+                        <div class="info-value">狼</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">年齢</div>
+                        <div class="info-value">14岁</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身長</div>
+                        <div class="info-value">174cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">好き</div>
+                        <div class="info-value">悪趣味、寝ること</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">嫌い</div>
+                        <div class="info-value">自責、取り返しのつかないことへの打撃</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="download-column">
+                <h2 class="section-title">音源ダウンロード</h2>
+                
+                <div class="download-section">
+                    <h3 class="download-subtitle">日本語</h3>
+                    <a href="https://bowlroll.net/file/352796" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                </div>
+
+                <details class="download-section">
+                    <summary class="download-subtitle" style="cursor: pointer; list-style: none;">旧版 (HOUKOSHIBA)</summary>
+                    <a href="https://bowlroll.net/file/335462" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                    <a href="https://github.com/tsutokiteo/tsutokiteo.github.io/releases/download/TenshinAoiCV/HOUKOSHIBA.V4.1.0.zip" class="download-link" target="_blank">CV（通过GitHub）</a>
+                    <a href="https://booth.pm/ja/items/6191234" class="download-link" target="_blank">CV（通过Booth）</a>
+                </details>
+            </div>
+        </div>
+        
+        <!-- 日语版其他信息区域 -->
+        <div class="other-info">
+            <h2 class="section-title">その他情報</h2>
+            <ul class="character-info">
+                <li class="info-item">
+                    <div class="info-label">音源所有者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源制作者</div>
+                    <div class="info-value">津時テオ</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">サンプリング提供者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源/キャラクター の 旧称</div>
+                    <div class="info-value">方小柴/ホウコシバ/HOUKOSHIBA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">公式サイト</div>
+                    <div class="info-value"><a href="https://space.bilibili.com/3493079275276517" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3493079275276517</a></div>
+                    <div class="info-value"><a href="https://space.bilibili.com/3546879855954312" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3546879855954312</a></div>
+                    <div class="info-value"><a href="https://x.com/KaRA_0621oex" style="color:#333; text-decoration:underline;">https://x.com/KaRA_0621oex</a></div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 日语版利用规约区域 -->
+        <div class="terms-section">
+            <h2 class="terms-title">[この音源は他の利用規約を使用する]</h2>
+            <div class="terms-content">
+                <p>●ようこそ、虚靖アオイの専用音声ライブラリをご利用ください。</p>
+                
+                <h3 class="terms-subtitle">■ 虚靖アオイ音声ライブラリの利用規約 ■</h3>
+                <ul class="terms-list">
+                    <li>宗教、適度なアダルト向けの内容でも OK です。</li>
+                    <li>麻薬や政治的な話題はダメです。</li>
+                    <li>この音声ソースは二次配布を禁じます。</li>
+                    <li>商業的な内容OK。</li>
+                    <li>この音声ソースを使用して作成された、著作権&法律、政治などに抵触する音楽や劇場作品に関しては、私は一切責任を負いません！</li>
+                    <li>二次創作、AI 音声ライブラリ、AI 絵画は受け付けますが、あまりひどいふりをしてはいけません。</li>
+                </ul>
+                
+                <h3 class="terms-subtitle">■著作権</h3>
+                <p>虚靖アオイ音声ライブラリー:(C) KaRA_SKY 2025 All Rights Reserved.</p>
+                
+                <h3 class="terms-subtitle">■元音設定</h3>
+                <p>津時テオ （@TsutokiTeo）X・Youtube</p>
+                
+                <h3 class="terms-subtitle">■歌姫アバター作画・制作</h3>
+                <p>木辛katsuki （1558846250）Bilibili</p>
+                
+                <h3 class="terms-subtitle">■歌姫アバター作画・制作</h3>
+                <p>雪狼UT （@xuelangUT114）X</p>
+                
+                <h3 class="terms-subtitle">■音庫設定制作</h3>
+                <p>KaRA_SKY（@KaRA_BensenOex）X・Youtube</p>
+            </div>
+        </div>
+        
+        <!-- 日语版弹窗（已更新） -->
+        <dialog class="tip-dialog" id="jpTipDialog">
+            <h3>⚠️ 注意</h3>
+            <p>新版「虚靖アオイ」音源は制作を完了し、配布を開始しました。こちらのページからダウンロードが可能です。</p>
+            <button class="dialog-btn" onclick="document.getElementById('jpTipDialog').close()">確認</button>
+        </dialog>
+        
+        <div class="back-container">
+            <a href="otherutau.html" class="back-link">← 音源一覧に戻る</a>
+        </div>
+    </div>
+    
+    <!-- 中文内容 -->
+    <div class="lang-content" id="zh-content">
+        <h1 class="page-title">虚靖アオイ</h1>
+        
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">角色信息</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">姓名</div>
+                        <div class="info-value">虚靖アオイ</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性别</div>
+                        <div class="info-value">雄性</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">种族</div>
+                        <div class="info-value">狼</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">年龄</div>
+                        <div class="info-value">14岁</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身高</div>
+                        <div class="info-value">174cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">喜好</div>
+                        <div class="info-value">恶趣味、睡觉</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">厌恶</div>
+                        <div class="info-value">自责、被无法挽回的事物所打击</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="download-column">
+                <h2 class="section-title">音源下载</h2>
+                
+                <div class="download-section">
+                    <h3 class="download-subtitle">日语</h3>
+                    <a href="https://bowlroll.net/file/352796" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                </div>
+
+                <details class="download-section">
+                    <summary class="download-subtitle" style="cursor: pointer; list-style: none;">旧版 (HOUKOSHIBA)</summary>
+                    <a href="https://bowlroll.net/file/335462" class="download-link" target="_blank">CV（通过Bowlroll）</a>
+                    <a href="https://github.com/tsutokiteo/tsutokiteo.github.io/releases/download/TenshinAoiCV/HOUKOSHIBA.V4.1.0.zip" class="download-link" target="_blank">CV（通过GitHub）</a>
+                    <a href="https://booth.pm/ja/items/6191234" class="download-link" target="_blank">CV（通过Booth）</a>
+                </details>
+            </div>
+        </div>
+        
+        <!-- 中文版其他信息区域 -->
+        <div class="other-info">
+            <h2 class="section-title">其他信息</h2>
+            <ul class="character-info">
+                <li class="info-item">
+                    <div class="info-label">音源所有者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源制作者</div>
+                    <div class="info-value">津時テオ</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">采样提供者</div>
+                    <div class="info-value">空_KaRA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">音源/角色的曾用名</div>
+                    <div class="info-value">方小柴/方音コシバ/HOUKOSHIBA</div>
+                </li>
+                <li class="info-item">
+                    <div class="info-label">官网</div>
+                    <div class="info-value"><a href="https://space.bilibili.com/3493079275276517" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3493079275276517</a></div>
+                    <div class="info-value"><a href="https://space.bilibili.com/3546879855954312" style="color:#333; text-decoration:underline;">https://space.bilibili.com/3546879855954312</a></div>
+                    <div class="info-value"><a href="https://x.com/KaRA_0621oex" style="color:#333; text-decoration:underline;">https://x.com/KaRA_0621oex</a></div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 中文版利用规约区域 -->
+        <div class="terms-section">
+            <h2 class="terms-title">[本音源使用其他利用规约]</h2>
+            <div class="terms-content">
+                <p>●欢迎使用虚靖アオイ音源。</p>
+                
+                <h3 class="terms-subtitle">■ 虚靖アオイ音声库利用规约 ■</h3>
+                <ul class="terms-list">
+                    <li>宗教、适度的成人向内容也OK。</li>
+                    <li>禁止涉及毒品或政治话题。</li>
+                    <li>禁止对本音源进行二次分发。</li>
+                    <li>可进行商业使用。</li>
+                    <li>对于使用本音源所创作出的，涉及版权、法律、政治等问题的音乐或剧场作品，本人概不负责！</li>
+                    <li>接受二次创作、AI音声库、AI绘画，但请勿进行过度恶搞。</li>
+                </ul>
+                
+                <h3 class="terms-subtitle">■版权</h3>
+                <p>虚靖アオイ音声库: (C) KaRA_SKY 2025 版权所有。</p>
+                
+                <h3 class="terms-subtitle">■原音设定</h3>
+                <p>津時テオ （@TsutokiTeo）X・Youtube</p>
+                
+                <h3 class="terms-subtitle">■歌姬Avatar作画・制作</h3>
+                <p>木辛katsuki （1558846250）Bilibili</p>
+                
+                <h3 class="terms-subtitle">■歌姬Avatar作画・制作</h3>
+                <p>雪狼UT （@xuelangUT114）X</p>
+                
+                <h3 class="terms-subtitle">■音库设定制作</h3>
+                <p>KaRA_SKY（@KaRA_BensenOex）X・Youtube</p>
+            </div>
+        </div>
+        
+        <!-- 中文版弹窗（已更新） -->
+        <dialog class="tip-dialog" id="cnTipDialog">
+            <h3>⚠️ Attention</h3>
+            <p>新版“虚靖アオイ”音源已制作完成并开始配布。您可以从本页面进行下载。</p>
+            <button class="dialog-btn" onclick="document.getElementById('cnTipDialog').close()">确认</button>
+        </dialog>
+        
+        <div class="back-container">
+            <a href="otherutau.html" class="back-link">← 返回音源列表</a>
+        </div>
+    </div>
+
+    <!-- 脚本 -->
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const jpBtn = document.getElementById('jp-btn');
+            const cnBtn = document.getElementById('cn-btn');
+            const jpContent = document.getElementById('jp-content');
+            const cnContent = document.getElementById('zh-content');
+            
+            // 切换到日语
+            jpBtn.addEventListener('click', function() {
+                jpBtn.classList.add('active');
+                cnBtn.classList.remove('active');
+                jpContent.classList.add('active');
+                cnContent.classList.remove('active');
+            });
+            
+            // 切换到中文
+            cnBtn.addEventListener('click', function() {
+                cnBtn.classList.add('active');
+                jpBtn.classList.remove('active');
+                cnContent.classList.add('active');
+                jpContent.classList.remove('active');
+            });
+            
+            // 根据浏览器语言自动切换
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                cnBtn.click();
+            }
+            
+            console.log('虚靖アオイページが読み込まれました。');
+        });
+
+        // 日语弹窗触发函数
+        function openJPTipDialog() {
+            document.getElementById('jpTipDialog').showModal();
+        }
+
+        // 中文弹窗触发函数
+        function openCNTipDialog() {
+            document.getElementById('cnTipDialog').showModal();
+        }
+    </script>
+</body>
+</html>
