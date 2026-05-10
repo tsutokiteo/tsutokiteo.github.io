@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>津時テオ | Tsutoki Teo</title>
+    <style>
+        /* ... 所有原有样式保持不变 ... */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #ffffff; color: #000000; font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "MS PGothic", "Microsoft YaHei", "Segoe UI", sans-serif; line-height: 1.6; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .language-switcher { text-align: right; margin-bottom: 40px; }
+        .lang-btn { background: transparent; border: 1px solid #000000; color: #000000; padding: 8px 16px; margin-left: 10px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        .lang-btn:hover { background-color: #f0f0f0; }
+        .lang-btn.active { background-color: #000000; color: #ffffff; }
+        .page-title { font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 60px; }
+        .content-wrapper { display: flex; flex-wrap: wrap; gap: 60px; margin-bottom: 40px; }
+        .info-column { flex: 1; min-width: 300px; }
+        .download-column { flex: 1; min-width: 300px; }
+        .section-title { font-size: 24px; font-weight: bold; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid #000000; }
+        .character-info { list-style: none; }
+        .info-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e0e0e0; }
+        .info-label { font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+        .info-value { font-size: 16px; color: #333333; }
+        .download-section { margin-bottom: 40px; }
+        .download-subtitle { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #333333; }
+        .download-link { display: block; padding: 15px 20px; border: 1px solid #000000; color: #000000; text-decoration: none; margin-bottom: 15px; font-size: 18px; text-align: center; transition: all 0.3s; background-color: #ffffff; cursor: pointer; }
+        .download-link:hover { background-color: #000000; color: #ffffff; }
+        .back-link { display: inline-block; padding: 12px 24px; border: 1px solid #000000; color: #000000; text-decoration: none; font-size: 16px; transition: all 0.3s; text-align: center; background-color: #ffffff; }
+        .back-link:hover { background-color: #000000; color: #ffffff; }
+        .back-container { text-align: center; margin-top: 40px; }
+        .other-info { margin-top: 60px; }
+        .tech-note { margin-top: 40px; padding: 15px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 14px; color: #666666; }
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+
+        /* ✅ 打印优化：仅打印当前选中语言，避免三语混排 */
+        @media print {
+            .language-switcher, .back-container { display: none; }
+            .lang-content:not(.active) { display: none !important; }
+            .download-link, .back-link { border: 1px solid #000000; color: #000000; background-color: transparent; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px 10px; }
+            .content-wrapper { gap: 40px; }
+            .page-title { font-size: 28px; margin-bottom: 40px; }
+            .section-title { font-size: 22px; }
+            .download-link { font-size: 16px; padding: 12px 16px; }
+            .other-info { margin-top: 40px; }
+        }
+
+        .tip-dialog { border: 1px solid #000; border-radius: 8px; padding: 25px; width: 90%; max-width: 400px; margin: auto; font-size: 16px; }
+        .tip-dialog::backdrop { background-color: rgba(0, 0, 0, 0.3); }
+        .dialog-btn { padding: 8px 16px; border: 1px solid #000; background-color: #fff; color: #000; cursor: pointer; transition: all 0.3s; margin-top: 15px; float: right; }
+        .dialog-btn:hover { background-color: #000; color: #fff; }
+    </style>
+</head>
+<body>
+    <!-- ✅ 将语言初始化脚本提前到 body 顶部，阻塞解析，避免闪烁 -->
+    <script>
+        (function() {
+            var lang = 'ja'; // 默认日语
+            var browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                lang = 'zh';
+            } else if (browserLang.startsWith('en')) {
+                lang = 'en';
+            }
+            // 通过直接操作 document.documentElement 类名，结合 CSS 显示对应语言
+            document.documentElement.className = 'lang-' + lang;
+        })();
+    </script>
+
+    <div class="language-switcher">
+        <button class="lang-btn" id="jp-btn" onclick="switchLang('ja')">日本語</button>
+        <button class="lang-btn" id="cn-btn" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" id="en-btn" onclick="switchLang('en')">English</button>
+    </div>
+
+    <!-- 日语内容 -->
+    <div class="lang-content" id="jp-content">
+        <h1 class="page-title">津時テオ</h1>
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">キャラクター情報</h2>
+                <ul class="character-info">
+                    <!-- ✅ 修复：移除了「名前」后面多余的 </div> -->
+                    <li class="info-item">
+                        <div class="info-label">名前</div>
+                        <div class="info-value"><ruby>津<rt>つ</rt></ruby><ruby>時<rt>とき</rt></ruby>テオ</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">性別</div>
+                        <div class="info-value">⚥</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">種族</div>
+                        <div class="info-value">狼龍[天使]</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">年齢</div>
+                        <div class="info-value">？</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">身長</div>
+                        <div class="info-value">174cm</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">好き</div>
+                        <div class="info-value">寝ること、<a href="https://tsutokiteo.github.io/Other_UTAU_VB/%E9%9D%9B%E9%93%A7%E3%82%A2%E3%82%AA%E3%82%A4.html" style="color:#333; text-decoration:underline;">KaRA</a>をからかうこと</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">嫌い</div>
+                        <div class="info-value">「愛」と呼ばれるが両者が幸せでない行為</div>
+                    </li>
+                    <li class="info-item">
+                        <div class="info-label">口癖</div>
+                        <div class="info-value">完璧な結末なんて、完璧じゃないって言うのに</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="download-column">
+                <h2 class="section-title">音源ダウンロード</h2>
+                <div class="download-section">
+                    <h3 class="download-subtitle">共通</h3>
+                    <div class="download-link" onclick="openDownloadTipDialog('jp')">Diffsinger ver1.0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="other-info">
+            <h2 class="section-title">その他情報</h2>
+            <ul class="character-info">
+                <li class="info-item"><div class="info-label">音源所有者</div><div class="info-value">津時テオ（茳耘）</div></li>
+                <li class="info-item"><div class="info-label">音源制作者</div><div class="info-value">津時テオ</div></li>
+                <li class="info-item"><div class="info-label">サンプリング提供者</div><div class="info-value">津時テオ</div></li>
+                <li class="info-item"><div class="info-label">情感サポート</div><div class="info-value">雨輝コトワ</div></li>
+            </ul>
+        </div>
+
+        <dialog class="tip-dialog" id="jpTipDialog">
+            <h3>⚠️ お知らせ</h3>
+            <p>津時テオDiffsinger音源は制作と初期テストが完了しましたが、まだ配布は始まっておりません。公式発表をお待ちください。</p>
+            <button class="dialog-btn" onclick="document.getElementById('jpTipDialog').close()">確認</button>
+        </dialog>
+        <dialog class="tip-dialog" id="jpDownloadDialog">
+            <h3>⚠️ お知らせ</h3>
+            <p>現在、公開配布されておりません。今後の発表をお待ちください。</p>
+            <button class="dialog-btn" onclick="document.getElementById('jpDownloadDialog').close()">確認</button>
+        </dialog>
+
+        <div class="tech-note">現在テスト中の津時テオ Diffsinger 音源は、UTAI の RVC 訓練と RVC2DIFFSINGER 技術を使用しています。</div>
+        <div class="back-container">
+            <a href="https://tsutokiteo.github.io/Diffsinger/ds.html" class="back-link">← 音源一覧に戻る</a>
+        </div>
+    </div>
+
+    <!-- 中文内容 -->
+    <div class="lang-content" id="zh-content">
+        <h1 class="page-title">津時テオ</h1>
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">角色信息</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">姓名</div>
+                        <div class="info-value"><ruby>津<rt>つ</rt></ruby><ruby>時<rt>とき</rt></ruby>テオ</div>
+                    </li>
+                    <li class="info-item"><div class="info-label">性别</div><div class="info-value">⚥</div></li>
+                    <li class="info-item"><div class="info-label">种族</div><div class="info-value">狼龙[天使]</div></li>
+                    <li class="info-item"><div class="info-label">年龄</div><div class="info-value">？</div></li>
+                    <li class="info-item"><div class="info-label">身高</div><div class="info-value">174cm</div></li>
+                    <li class="info-item"><div class="info-label">喜好</div><div class="info-value">睡觉、捉弄<a href="...">KaRA</a></div></li>
+                    <li class="info-item"><div class="info-label">厌恶</div><div class="info-value">名为「爱」却双方并不开心的行为</div></li>
+                    <li class="info-item"><div class="info-label">口癖</div><div class="info-value">完美结局什么的，也并不完美的说</div></li>
+                </ul>
+            </div>
+            <div class="download-column">
+                <h2 class="section-title">音源下载</h2>
+                <div class="download-section">
+                    <h3 class="download-subtitle">通用</h3>
+                    <div class="download-link" onclick="openDownloadTipDialog('cn')">Diffsinger ver1.0</div>
+                </div>
+            </div>
+        </div>
+        <div class="other-info">
+            <h2 class="section-title">其他信息</h2>
+            <ul class="character-info">
+                <li class="info-item"><div class="info-label">音源所有者</div><div class="info-value">津時テオ（茳耘）</div></li>
+                <li class="info-item"><div class="info-label">音源制作者</div><div class="info-value">津時テオ</div></li>
+                <li class="info-item"><div class="info-label">采样提供者</div><div class="info-value">津時テオ</div></li>
+                <li class="info-item"><div class="info-label">情感支持</div><div class="info-value">雨輝コトワ</div></li>
+            </ul>
+        </div>
+        <dialog class="tip-dialog" id="cnTipDialog">
+            <h3>⚠️ 通知</h3>
+            <p>津時テオ Diffsinger 声库已完成制作和初步测试，暂未开始配布。敬请期待官方通知。</p>
+            <button class="dialog-btn" onclick="document.getElementById('cnTipDialog').close()">确认</button>
+        </dialog>
+        <dialog class="tip-dialog" id="cnDownloadDialog">
+            <h3>⚠️ 通知</h3>
+            <p>并未公开配布，敬请期待。</p>
+            <button class="dialog-btn" onclick="document.getElementById('cnDownloadDialog').close()">确认</button>
+        </dialog>
+        <div class="tech-note">当前测试的津時テオ Diffsinger 声库使用 UTAI 的 RVC 训练和 RVC2DIFFSINGER 技术。</div>
+        <div class="back-container"><a href="..." class="back-link">← 返回音源列表</a></div>
+    </div>
+
+    <!-- 英文内容 -->
+    <div class="lang-content" id="en-content">
+        <h1 class="page-title">Tsutoki Teo</h1>
+        <div class="content-wrapper">
+            <div class="info-column">
+                <h2 class="section-title">Character Information</h2>
+                <ul class="character-info">
+                    <li class="info-item">
+                        <div class="info-label">Name</div>
+                        <div class="info-value"><ruby>津<rt>つ</rt></ruby><ruby>時<rt>とき</rt></ruby>テオ</div>
+                    </li>
+                    <li class="info-item"><div class="info-label">Gender</div><div class="info-value">⚥</div></li>
+                    <li class="info-item"><div class="info-label">Race</div><div class="info-value">Wolf Dragon [Angel]</div></li>
+                    <li class="info-item"><div class="info-label">Age</div><div class="info-value">?</div></li>
+                    <li class="info-item"><div class="info-label">Height</div><div class="info-value">174cm</div></li>
+                    <li class="info-item"><div class="info-label">Likes</div><div class="info-value">Sleeping, teasing <a href="...">KaRA</a></div></li>
+                    <li class="info-item"><div class="info-label">Dislikes</div><div class="info-value">Actions called "love" where both parties are unhappy</div></li>
+                    <li class="info-item"><div class="info-label">Catchphrase</div><div class="info-value">Perfect endings and such, aren't perfect either</div></li>
+                </ul>
+            </div>
+            <div class="download-column">
+                <h2 class="section-title">Voicebank Download</h2>
+                <div class="download-section">
+                    <h3 class="download-subtitle">General</h3>
+                    <div class="download-link" onclick="openDownloadTipDialog('en')">Diffsinger ver1.0</div>
+                </div>
+            </div>
+        </div>
+        <div class="other-info">
+            <h2 class="section-title">Other Information</h2>
+            <ul class="character-info">
+                <li class="info-item"><div class="info-label">Voicebank Owner</div><div class="info-value">Tsutoki Teo (Jiang Yun)</div></li>
+                <li class="info-item"><div class="info-label">Voicebank Creator</div><div class="info-value">Tsutoki Teo</div></li>
+                <li class="info-item"><div class="info-label">Sampling Provider</div><div class="info-value">Tsutoki Teo</div></li>
+                <li class="info-item"><div class="info-label">Emotional Support</div><div class="info-value">Amaki Kotowa</div></li>
+            </ul>
+        </div>
+        <dialog class="tip-dialog" id="enTipDialog">...</dialog>
+        <dialog class="tip-dialog" id="enDownloadDialog">...</dialog>
+        <div class="tech-note">The currently tested Tsutoki Teo Diffsinger voicebank uses UTAI's RVC training and RVC2DIFFSINGER technology.</div>
+        <div class="back-container"><a href="..." class="back-link">← Back to Voicebank List</a></div>
+    </div>
+
+    <script>
+        // ✅ 语言切换函数 + 按钮高亮与内容显示
+        function switchLang(lang) {
+            // 隐藏所有语言内容
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            // 显示选中语言
+            document.getElementById(lang === 'ja' ? 'jp-content' : lang === 'zh' ? 'zh-content' : 'en-content').classList.add('active');
+            // 按钮激活样式
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            if (lang === 'ja') document.getElementById('jp-btn').classList.add('active');
+            else if (lang === 'zh') document.getElementById('cn-btn').classList.add('active');
+            else document.getElementById('en-btn').classList.add('active');
+        }
+
+        // ✅ 根据 <html> 类名初始化显示（结合 body 顶部的同步脚本）
+        document.addEventListener('DOMContentLoaded', function() {
+            var htmlCls = document.documentElement.className;
+            var lang = 'ja';
+            if (htmlCls.indexOf('lang-zh') >= 0) lang = 'zh';
+            else if (htmlCls.indexOf('lang-en') >= 0) lang = 'en';
+            switchLang(lang);
+
+            console.log('津時テオページが読み込まれました。');
+        });
+
+        // 弹窗函数保持不变
+        function openJPTipDialog() { document.getElementById('jpTipDialog').showModal(); }
+        function openCNTipDialog() { document.getElementById('cnTipDialog').showModal(); }
+        function openENTipDialog() { document.getElementById('enTipDialog').showModal(); }
+        function openDownloadTipDialog(lang) {
+            if (lang === 'jp') document.getElementById('jpDownloadDialog').showModal();
+            else if (lang === 'cn') document.getElementById('cnDownloadDialog').showModal();
+            else document.getElementById('enDownloadDialog').showModal();
+        }
+    </script>
+</body>
+</html>
